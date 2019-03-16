@@ -15,7 +15,6 @@ const String APIKey = "0c6c77820236b1a47e8ac996c35c21c8";
 const String senduri = "/services/sendform.aspx?xdata=" + email + "|" + xid;
 const int port = 80;
 String line;
-int switchNumber;
 // Create module object on GPIO pin
 
 // wifi 6 (RX) and 7 (TX)
@@ -27,6 +26,8 @@ const char pass[] = "nevc6096";
 
 
   WiFiEspClient clientJson;
+int testVar = 0;
+int switchNumber=0;
 
 
 // Declare and initialise variable for radio status
@@ -60,21 +61,15 @@ buf.init();
         char c = client.read();
         Serial.write(c);
         buf.push(c);
+if(testVar == 1){Serial.print("JAAAAA");}
+
 
         if (buf.endsWith("GET /H")) 
         {
             
              Serial.println("TESTING");
-           // city = "Stockholm";
-            // uri = "/data/2.5/weather?q=" + city + "&APPID=" + APIKey;
             jSon();
-             //while (clientJson.available())
-   // { 
-    // char y = clientJson.read();
-    // Serial.write(y);
- // Serial.print("");
  
-   // }
           }
           else if (buf.endsWith("GET /L")) 
           {
@@ -93,7 +88,7 @@ buf.init();
             "Connection: close\r\n"
             "\r\n");
 
-String html ="<!DOCTYPE html> <html> <head> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel= \"stylesheet\" href=\"main.css\"> </head> <body> <h1 align=\"center\">Mathilda & Eriks IoT-Projekt</h1> <h1 align=\"center\">Weather Data</h1> <div class=\"row\"> <div class=\"column\"> <div class=\"container\"> <img src=\"Stockholm.jpg\" alt=\"Stockholm\" style=\"width:100%\"> <button class=\"btn\">Stockholm</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"Tokyo.jpg\" alt=\"Tokyo\" style=\"width:100%\" alt=\"centered image\"/> <button class=\"btn\">Tokyo</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"Paris.jpg\" alt=\"Paris\" style=\"width:100%\"> <button class=\"btn\">Paris</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"Amsterdam.jpg\" alt=\"Amsterdam\" style=\"width:100%\"> <button class=\"btn\">Amsterdam</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"London.jpg\" alt=\"London\" style=\"width:100%\"> <button class=\"btn\">London</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"Barcelona.jpg\" alt=\"Barcelona\" style=\"width:100%\"> <button class=\"btn\">Barcelona</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"San%20Francisco.jpg\" alt=\"SanFrancisco\" style=\"width:100%\"> <button class=\"btn\">San Francisco</button> </div> </div> </body> </html>";
+String html ="<!DOCTYPE html> <html> <head> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel= \"stylesheet\" href=\"https://zztorp.github.io/WeatherDataHtmlCss/main.css\"> </head> <body> <h1 align=\"center\">Mathilda & Eriks IoT-Projekt</h1> <h1 align=\"center\">Weather Data</h1> <div class=\"row\"> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/Stockholm.jpg\"  style=\"width:100%\"> <button class=\"btn\" onclick=\"window.location.href='/H'\"> Stockholm</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/Tokyo.jpg\" style=\"width:100%\" alt=\"centered image\"/> <button class=\"btn\">Tokyo</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/Paris.jpg\" alt=\"Paris\" style=\"width:100%\"> <button class=\"btn\">Paris</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/Amsterdam.jpg\" alt=\"Amsterdam\" style=\"width:100%\"> <button class=\"btn\">Amsterdam</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/London.jpg\" alt=\"London\" style=\"width:100%\"> <button class=\"btn\">London</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/Barcelona.jpg\" alt=\"Barcelona\" style=\"width:100%\"> <button class=\"btn\">Barcelona</button> </div> <div class=\"column\"> <div class=\"container\"> <img src=\"https://zztorp.github.io/WeatherDataHtmlCss/SanFrancisco.jpg\" alt=\"SanFrancisco\" style=\"width:100%\"> <button class=\"btn\">San Francisco</button> </div> </div> </body> </html>";
 client.print(html);
             
          
@@ -156,7 +151,7 @@ switch(switchNumber)
   }
 
   String uri = "/data/2.5/weather?q=" + city + "&APPID=" + APIKey;//"/data/2.5/weather?q=" + city + "," + countryCode + "&APPID=" + APIKey;
-
+Serial.print(uri);
 delay(1000);
    // Serial.println();
    // Serial.println(F("Reading from server..."));
@@ -178,7 +173,11 @@ delay(1000);
         delay(5);
         Serial.print("newhurrdirr");
     }
-
+if (client.available()) {
+        char c = clientJson.read();
+        Serial.write(c);
+        Serial.print("ö");
+        }
 Serial.print("sistatest");
   char endOfHeaders[] = "\r\n\r\n";
 
